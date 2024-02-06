@@ -1,0 +1,46 @@
+ID,Description,ReorderLevel,ReorderQuantity,UnitPrice,StockOnHand
+1,Chai,10,14,10,9
+2,Syrup,25,8,5,10
+3,Cajun Seasoning,10,17,7,7
+4,Olive Oil,10,16,8,8
+5,Boysenberry Spread,25,19,6,5
+6,Dried Pears,10,23,6,7
+7,Curry Sauce,10,30,9,6
+8,Walnuts,10,17,2,1
+9,Fruit Cocktail,10,29,7,8
+10,Chocolate Biscuits Mix,5,7,2,1
+11,Marmalade,10,61,10,2
+12,Scones,5,8,6,5
+13,Beer,15,11,7,4
+14,Crab Meat,30,14,2,3
+15,Clam Chowder,10,7,10,6
+16,Coffee,25,35,3,1
+17,Chocolate,25,10,10,1
+18,Dried Apples,10,40,1,3
+19,Long Grain Rice,25,5,7,3
+20,Gnocchi,30,29,8,3
+21,Ravioli,20,15,5,7
+22,Hot Pepper Sauce,10,16,6,7
+23,Tomato Sauce,20,13,9,5
+24,Mozzarella,10,26,9,4
+25,Almonds,5,8,9,5
+26,Mustard,15,10,4,3
+27,Dried Plums,50,3,7,3
+28,Green Tea,100,2,3,2
+29,Granola,20,2,2,2
+30,Potato Chips,30,1,5,3
+31,Brownie Mix,10,9,8,2
+32,Cake Mix,10,11,7,8
+33,Tea,20,2,4,3
+34,Pears,10,1,1,10
+35,Peaches,10,1,7,7
+36,Pineapple,10,1,6,1
+37,Cherry Pie Filling,10,1,2,10
+38,Green Beans,10,1,9,2
+39,Corn,10,1,6,3
+40,Peas,10,1,6,3
+41,Tuna Fish,30,1,2,8
+42,Smoked Salmon,30,2,10,9
+43,Hot Cereal,50,3,6,8
+44,Vegetable Soup,100,1,9,4
+45,Chicken Soup,100,1,8,2
