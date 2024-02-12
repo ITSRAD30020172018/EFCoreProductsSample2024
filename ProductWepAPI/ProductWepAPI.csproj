@@ -5,11 +5,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Data\Supplier.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ProductModel\ProductModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\Supplier.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\Products.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
