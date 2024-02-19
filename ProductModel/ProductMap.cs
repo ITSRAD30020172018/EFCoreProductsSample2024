@@ -11,7 +11,7 @@ namespace ProductModel
     {
         public Map()
         {
-            Map(m => m.ID).Name("ID");
+            //Map(m => m.ID).Name("ID");
             Map(m => m.Description).Name("Description");
             Map(m => m.ReorderLevel).Name("ReorderLevel");
             Map(m => m.ReorderQuantity).Name("ReorderQuantity");

@@ -12,16 +12,21 @@ namespace ProductModel
     {
          public DbSet<Product> Products { get; set; }
 
+        public DbSet<Supplier> Suppliers { get; set; }
+
         static public bool inProduction;
         public ProductDBContext()
         {
             
         }
-
+        public ProductDBContext(DbContextOptions<ProductDBContext> options) : base(options)
+        {
+            // Seeding to be done in Seeder after we add the context
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
-            var myconnectionstring = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = ProductCoreDB";
+            var myconnectionstring = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = ProductCoreDB-2024";
             optionsBuilder.UseSqlServer(myconnectionstring)
               .LogTo(Console.WriteLine,
                      new[] { DbLoggerCategory.Database.Command.Name },
@@ -35,11 +40,13 @@ namespace ProductModel
             // NOTE: this line is activated from the bin folder whihc is a sub
             // folder of the class library project
             // You must build the project before calling Add-migration
-            if (!inProduction)
-            {
-                Product[] products = DBHelper.Get<Product>(@"..\ProductModel\Products.csv").ToArray();
-                modelBuilder.Entity<Product>().HasData(products);
-            }
+
+            // Data will be seeded using DB Seeder
+            //if (!inProduction)
+            //{
+            //    Product[] products = DBHelper.Get<Product>(@"..\ProductModel\Products.csv").ToArray();
+            //    modelBuilder.Entity<Product>().HasData(products);
+            //}
             //modelBuilder.Entity<Product>().HasData(
             // new Product
             // {

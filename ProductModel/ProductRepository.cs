@@ -19,6 +19,7 @@ namespace ProductModel
         public void Add(Product entity)
         {
             context.Products.Add(entity);
+            context.SaveChanges();
         }
 
         public void AddRange(IEnumerable<Product> entities)

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProductAPIClientLibrary\ProductAPIClientLibrary.csproj" />
     <ProjectReference Include="..\ProductModel\ProductModel.csproj" />
   </ItemGroup>
 
