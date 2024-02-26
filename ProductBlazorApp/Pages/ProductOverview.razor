@@ -1,0 +1,37 @@
+﻿@page "/productoverview"
+<h3>ProductOverview</h3>
+
+<h1 class="page-title">All Products</h1>
+@if (products == null)
+{
+    <p><em>Loading.......</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Description</th>
+                <th>Qty in Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in products)
+            {
+                <tr>
+                    <td>@p.ID</td>
+                    <td>@p.Description</td>
+                    <td>@p.StockOnHand</td>
+                    <td>
+                        <a href="@($"productdetail/{p.ID}")" class="btn btn-primary table-btn">
+                            Detail
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

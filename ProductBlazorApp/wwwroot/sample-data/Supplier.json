@@ -1,0 +1,47 @@
+[
+ {
+  
+   "CompanyName": "Exotic Liquids",
+   "ContactName": "Charlotte Cooper",
+   "ContactTitle": "Purchasing Manager",
+   "Address": "49 Gilbert St.",
+   "City": "London",
+   "Region": null,
+   "PostalCode": "EC1 4SD",
+   "Country": "UK",
+   "Phone": "(171) 555-2222"
+ },
+ {
+   "CompanyName": "New Orleans Cajun Delights",
+   "ContactName": "Shelley Burke",
+   "ContactTitle": "Order Administrator",
+   "Address": "P.O. Box 78934",
+   "City": "New Orleans",
+   "Region": "LA",
+   "PostalCode": "70117",
+   "Country": "USA",
+   "Phone": "(100) 555-4822"
+ },
+ {
+   "CompanyName": "Grandma Kelly's Homestead",
+   "ContactName": "Regina Murphy",
+   "ContactTitle": "Sales Representative",
+   "Address": "707 Oxford Rd.",
+   "City": "Ann Arbor",
+   "Region": "MI",
+   "PostalCode": "48104",
+   "Country": "USA",
+   "Phone": "(313) 555-5735"
+ },
+ {
+   "CompanyName": "Tokyo Traders",
+   "ContactName": "Yoshi Nagase",
+   "ContactTitle": "Marketing Manager",
+   "Address": "9-8 Sekimai Musashino-shi",
+   "City": "Tokyo",
+   "Region": null,
+   "PostalCode": "100",
+   "Country": "Japan",
+   "Phone": "(03) 3555-5011"
+ }
+]
