@@ -97,9 +97,11 @@ namespace ProductModel.Migrations
 
             modelBuilder.Entity("ProductModel.Product", b =>
                 {
-                    b.HasOne("ProductModel.Supplier", null)
+                    b.HasOne("ProductModel.Supplier", "ProductSupplier")
                         .WithMany("SupplierProducts")
                         .HasForeignKey("SupplierID");
+
+                    b.Navigation("ProductSupplier");
                 });
 
             modelBuilder.Entity("ProductModel.Supplier", b =>

@@ -12,7 +12,8 @@ namespace ProductModel
         T Get(int id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
-        
+
+        Task<T> Put(T Entity);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
         

@@ -45,6 +45,19 @@ namespace ProductSeeding
         _ctx.SaveChanges();
         
       }
+      // Randomly assign supplierIDs to the Products
+      if(_ctx.Products.Any(p => p.SupplierID == null)) {
+                var UnassignedProducts = _ctx.Products.Where(p =>p.SupplierID == null).ToList();
+                foreach (var item in UnassignedProducts)
+                {
+                    var randomSupplierID = _ctx.Suppliers
+                        .Select(n => new { ID = n.SupplierID, guid = Guid.NewGuid() })
+                        .OrderBy(n => n.guid).First().ID;
+                    item.SupplierID = randomSupplierID;
+                }
+                _ctx.SaveChanges();
+            }
+
     }
   }
 }

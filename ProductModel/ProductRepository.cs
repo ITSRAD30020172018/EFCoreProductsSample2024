@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -39,7 +40,7 @@ namespace ProductModel
 
         public IEnumerable<Product> GetAll()
         {
-            return context.Products;
+            return context.Products.Include("ProductSupplier").ToList();
         }
 
         public void Remove(Product entity)
@@ -55,6 +56,38 @@ namespace ProductModel
         public void Dispose()
         {
             context.Dispose();
+        }
+
+        public async Task<Supplier> SupplierProduct(int productId)
+        {
+
+            if(context.Products.Find(productId) != null)
+                return context.Products
+                              .FirstOrDefaultAsync(p => p.ID == productId)
+                              .Result.ProductSupplier;
+            return null;
+            //return context.Suppliers
+            //    .Include(s => s.SupplierProducts)
+            //    .Where(s => s.SupplierID == sp.SupplierID).FirstOrDefault();
+        }
+
+        public async Task<Product> ProductWithSupplier(int productId)
+        {
+            return await context.Products
+                .Include(s => s.ProductSupplier)
+                .FirstOrDefaultAsync(P => P.ID == productId);
+        }
+
+        public async Task<IEnumerable<Supplier>> GetSupplierList()
+        {
+            return await context.Suppliers.ToListAsync();
+        }
+
+        public async Task<Product> Put(Product Entity)
+        {
+            context.Entry<Product>(Entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await context.SaveChangesAsync();
+            return Entity;
         }
     }
 }

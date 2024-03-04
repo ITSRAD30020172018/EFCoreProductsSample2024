@@ -22,5 +22,11 @@ namespace ProductModel
         public double UnitPrice { get; set; }
         [Display(Name = "Stock on Hand")]
         public int StockOnHand { get; set; }
+        [ForeignKey("ProductSupplier")]
+        public int? SupplierID { get; set; }
+        // Add two way navigation from Product to Supplier
+        // NOTE: EF intuitively added Supplier field previously as navigation was set on the other side
+        // So no change to the model for SupplierID!!
+        public virtual Supplier ProductSupplier { get; set; }
     }
 }

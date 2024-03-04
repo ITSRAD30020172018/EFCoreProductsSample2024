@@ -18,12 +18,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProductWepAPI
 {
     public class Startup
     {
+        // For CORS on localhost
+        readonly string LocalAllowSpecificOrigins = "_localAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -74,7 +77,27 @@ namespace ProductWepAPI
             services.AddTransient<DbSeeder>();
             services.AddTransient<ApplicationDbSeeder>();
             // This says we are using Controller which are services
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: LocalAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      // current Blazor localhost endpoints
+                                      builder.WithOrigins("https://localhost:7104",
+                                                          "http://localhost:30571",
+                                                          "http://localhost:5152")
+                                                            .AllowAnyHeader()
+                                                            .AllowAnyMethod();
+                                  });
+            });
+            // https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to?pivots=dotnet-5-0
+            // Configuring built in Json serialisation
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProductWepAPI", Version = "v1" });
@@ -123,14 +146,15 @@ namespace ProductWepAPI
                 
             }
             );
-
             
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
 
             app.UseRouting();
-                        
+
+            app.UseCors(LocalAllowSpecificOrigins);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

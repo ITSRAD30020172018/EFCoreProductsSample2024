@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject ToastService toastService
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +8,4 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+<button class="btn btn-info" @onclick="@(() => toastService.ShowToast("I'm an INFO message", ToastLevel.Info))">Info Toast</button>

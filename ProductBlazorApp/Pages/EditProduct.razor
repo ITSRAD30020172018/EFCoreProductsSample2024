@@ -1,0 +1,55 @@
+﻿@page "/editproduct/{ID:int}"
+@inject ToastService toastService
+<h3>EditProduct</h3>
+
+
+@if (Product == null)
+{
+    <p><em>Loading.......</em></p>
+}
+else
+{
+<div class="card">
+    <h4 class="card-header">Product</h4>
+    <div class="card-body">
+
+        <EditForm Model="@Product"
+                  OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label>Descrption </label>
+                <InputText @bind-Value="Product.Description" class="form-control" />
+                <ValidationMessage For="@(() => Product.Description)" />
+            </div>
+            <div class="form-group">
+                <label>Unit Price</label>
+                <InputNumber @bind-Value="Product.UnitPrice" class="form-control" />
+                <ValidationMessage For="@(() => Product.UnitPrice)" />
+
+            </div>
+            <div class="form-group">
+                <label>Stock on Hand</label>
+                <InputNumber @bind-Value="Product.StockOnHand" class="form-control" />
+                <ValidationMessage For="@(() => Product.StockOnHand)" />
+            </div>
+
+            <div class="form-group">
+                <label>Supplier</label>
+                <InputSelect @bind-Value="Product.SupplierID" class="form-control">
+                    @foreach (var s in supplierList)
+                    {
+                        <option value="@s.SupplierID">@s.CompanyName</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => Product.SupplierID)" />
+            </div>
+            <div class="form-group">
+                    <label>@message</label>
+            </div>
+            <button type="submit" class="btn btn-primary" >Update</button>
+        </EditForm>
+            
+
+    </div>
+</div>
+}

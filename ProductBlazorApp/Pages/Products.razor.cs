@@ -8,36 +8,32 @@ using System.Threading.Tasks;
 
 namespace ProductBlazorApp.Pages
 {
-    public partial class ProductDetail
+    public partial class Products
     {
-        
-        [Parameter]
-        public int ID { get; set; }
-        public Product Product { get; set; }
-        [Inject]    
+        public List<Product> ProductsList { get; set; } = new List<Product>();
+        [Inject]
         public IHttpClientService httpService { get; set; }
-
+        [Inject]
+        //public ILocalStorageService localStorageService { get; set; }
+        //[Inject]
         public NavigationManager NavigationManager { get; set; }
         protected async override Task OnInitializedAsync()
         {
-            try {
+            try
+            {
                 if (await httpService.GetTokenAsync() != null)
-                    Product = await httpService.getSingle<Product>(@"api\Products\GetProductWithSupplier\ProductId\", ID);
+                    ProductsList = await httpService.getCollection<Product>(@"api\Products");
                 else throw (new Exception("No Token Login found"));
-                if (Product == null)
-                {
-                    throw (new Exception("No Product Found"));
-                }
-                else Console.WriteLine(Product.ID);
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 NavigationManager.NavigateTo($"/Error/{e.Message}");
 
             }
         }
-        
 
+        
     }
 }
