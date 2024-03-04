@@ -22,16 +22,20 @@ namespace ProductWepAPI.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _config;
 
         public Accounts(
           SignInManager<ApplicationUser> signInManager,
           UserManager<ApplicationUser> userManager,
+          RoleManager<IdentityRole> roleManager,
+
           IConfiguration config)
         {
             
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _config = config;
         }
 
@@ -56,14 +60,30 @@ namespace ProductWepAPI.Controllers
 
                     if (result.Succeeded)
                     {
+                        IdentityOptions _options = new IdentityOptions();
                         // Create the token
-                        var claims = new[]
+                        List<Claim> claims = new List<Claim>()
                         {
                           new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                           new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                           new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
                          };
-                            
+
+                        // role claims
+                        var userClaims = await _userManager.GetClaimsAsync(user);
+                        var userRoles = await _userManager.GetRolesAsync(user);
+                        claims.AddRange(userClaims);
+                        foreach (var userRole in userRoles)
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, userRole));
+                            var role = await _roleManager.FindByNameAsync(userRole);
+                            if (role != null)
+                            {
+                                var roleclaims = await _roleManager.GetClaimsAsync(role);
+                                claims.AddRange(roleclaims);
+                            }
+
+                        }
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
                         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

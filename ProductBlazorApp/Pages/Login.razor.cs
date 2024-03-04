@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorToastNotifications.Services;
+using Microsoft.AspNetCore.Components;
 using ProductDataServices;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace ProductBlazorApp.Pages
         AppState appState { get; set; }
 
         Token token = null;
+        [Inject]
+        ToastService toastService { get; set; }
 
         ViewModels.LoginViewModel model = new ViewModels.LoginViewModel();
         private bool loading;
@@ -38,6 +41,7 @@ namespace ProductBlazorApp.Pages
                 {
                     appState.LoggedIn = true;
                     NavigationManager.NavigateTo("/");
+                    toastService.ShowToast($"Successfully logged in", ToastLevel.Success);
                 }
             }
             catch (Exception ex)
@@ -45,6 +49,7 @@ namespace ProductBlazorApp.Pages
                 Console.WriteLine(ex.Message);
                 loading = false;
                 StateHasChanged();
+                toastService.ShowToast($"Unsuccessful login", ToastLevel.Success);
             }
         }
     }

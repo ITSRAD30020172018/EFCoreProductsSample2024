@@ -18,9 +18,9 @@ namespace ProductBlazorApp.Pages
         public IHttpClientService httpService { get; set; }
 
         public string message { get; set; } = "Messages here";
-        //[Inject]
-        //public ToastService toastService { get; set; }
-
+        [Inject]
+        public ToastService toastService { get; set; }
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
         List<Supplier> supplierList { get; set; } = new List<Supplier>();
 
@@ -53,20 +53,15 @@ namespace ProductBlazorApp.Pages
             if(Product.ID == 0)
             {
                 httpService.Post(@"api\Products", Product);
-                toastService.ShowToast($"Product Saved", ToastLevel.Success);
+                toastService.ShowToast($"New Product Saved", ToastLevel.Success);
             }
             else
             {
-                httpService.Put(@"api\Products", Product)
-                    .ContinueWith((p) =>
-                toastService.ShowToast($"Updated {p.Result.Description}", ToastLevel.Success));  
+                httpService.Put(@"api\Products", Product);
+                toastService.ShowToast($"Product Updated {Product.Description}", ToastLevel.Success);  
                 
-                //message = "Product Updated";
-                //Thread.Sleep(1000);
-                //message = "";
             }
-            
-            //NavigationManager.NavigateTo($"/");
+            NavigationManager.NavigateTo("/products");
         }
 
         private void HandleInvalidSubmit()

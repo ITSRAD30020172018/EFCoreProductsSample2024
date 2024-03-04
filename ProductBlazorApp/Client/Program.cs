@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ProductDataServices;
+using ProductModel;
 
 namespace ProductBlazorApp
 {
@@ -24,8 +25,17 @@ namespace ProductBlazorApp
             builder.Services.AddSingleton<AppState>();
             builder.Services.AddScoped<ToastService>();
             //builder.Services.AddScoped<NavigationManager>();
-
-            await builder.Build().RunAsync();
+            var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var _localservice = scope.ServiceProvider.GetRequiredService<ILocalStorageService>();
+                var _appState = scope.ServiceProvider.GetRequiredService<AppState>();
+                // Clear the Token if set
+                await _localservice.RemoveItem("token");
+                // set loged out
+                _appState.LoggedIn = false;
+            }
+            await app.RunAsync();
         }
     }
 }
