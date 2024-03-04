@@ -13,6 +13,7 @@ namespace ProductModel
         [Display(Name = "Product Number")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        [MaxLength(20)]
         public string Description { get; set; }
         [Display(Name = "Re-order Threshold")]
         public int ReorderLevel { get; set; }

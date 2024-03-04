@@ -24,7 +24,7 @@ namespace ProductBlazorApp.Pages
             try
             {
                 if (await httpService.GetTokenAsync() != null)
-                    ProductsList = await httpService.getCollection<Product>(@"api\Products\GetSupplierList");
+                    ProductsList = await httpService.getCollection<Product>(@"api\Products");
                 else throw (new Exception("No Token Login found"));
 
             }
