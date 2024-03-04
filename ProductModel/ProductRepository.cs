@@ -80,7 +80,8 @@ namespace ProductModel
 
         public async Task<IEnumerable<Supplier>> GetSupplierList()
         {
-            return await context.Suppliers.ToListAsync();
+            return await context.Suppliers
+                .Include( sp => sp.SupplierProducts).ToListAsync();
         }
 
         public async Task<Product> Put(Product Entity)

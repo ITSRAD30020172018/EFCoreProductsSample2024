@@ -1,7 +1,12 @@
-﻿@page "/Error/{Message}" 
+﻿@page "/error/{message}" 
 
 <h3>Error</h3>
 
-@code {
+<p >Error message @Message</p>
+
+@code{
+
+    [Parameter]
+    public string? Message { get; set; }
 
 }

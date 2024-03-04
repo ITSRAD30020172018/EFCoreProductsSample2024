@@ -1,0 +1,49 @@
+﻿@page "/supplierproducts"
+<h3>Supplier  Products</h3>
+
+@if (CurrentSupplier == null)
+{
+    <p><em>Loading Supplier.......</em></p>
+}
+else{
+
+<div class="form-group">
+    <label>Filter by Supplier</label>
+    <InputSelect  class="form-control"
+                     ValueExpression=@(()=>CurrentSupplier.SupplierID)
+                     Value="@CurrentSupplier.SupplierID"
+                     ValueChanged="@((int value) => FilterSupplier(value ))">
+        @if(supplierList != null)
+        foreach (var s in supplierList)
+            {
+                <option value="@s.SupplierID">@s.CompanyName</option>
+            }
+    </InputSelect>
+</div>
+    if (CurrentSupplier.SupplierProducts == null)
+    {
+        <p><em>Loading Supplier Products.......</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Description</th>
+                    <th>Qty in Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in CurrentSupplier.SupplierProducts)
+                {
+                    <tr>
+                        <td>@p.ID</td>
+                        <td>@p.Description</td>
+                        <td>@p.StockOnHand</td>
+                   </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
