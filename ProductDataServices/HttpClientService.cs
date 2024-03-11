@@ -39,7 +39,9 @@ namespace ProductDataServices
             _httpClient.DefaultRequestHeaders.Add("Accept", "*/*");
             if (Token_held == null)
                 Token_held = await _localStorageService.GetItem<Token>("token");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token_held.AccessToken);
+            // Might be unauthenticated call so don't add header
+            if(Token_held != null)
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token_held.AccessToken);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // New Blazor Get
             try
