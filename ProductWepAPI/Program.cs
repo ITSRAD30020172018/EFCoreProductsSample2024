@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ProductModel;
 using ProductSeeding;
+using ProductWepAPI.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +19,18 @@ namespace ProductWepAPI
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ProductDBContext>();
+                db.Database.Migrate();
+            }
             // Migrations have to be used with the two contexts
             SeedDb(host);
+            using (var scope = host.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.Migrate();
+            }
             SeedApplicationDb(host);
            host.Run();
         }
